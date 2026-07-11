@@ -1,5 +1,4 @@
-# Uncomment this line to define a global platform for your project
-# platform :ios, '13.0'
+platform :ios, '14.0'
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -33,6 +32,14 @@ target 'Runner' do
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths
+  end
+
+  # Widget extension compiles BackgroundIntent.swift, which imports home_widget.
+  target 'NdslWidget' do
+    use_frameworks!
+    inherit! :search_paths
+
+    pod 'home_widget', :path => '.symlinks/plugins/home_widget/ios'
   end
 end
 
