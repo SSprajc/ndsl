@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<style>
+@keyframes nd-bob { 0%,100%{ transform:translateY(0) rotate(-1deg) } 50%{ transform:translateY(-5%) rotate(1deg) } }
+@keyframes nd-wiggle { 0%,100%{ transform:rotate(var(--rot,0deg)) translateY(0) } 50%{ transform:rotate(var(--rot,0deg)) translateY(-8%) } }
+</style>
+</helmet>
+<div style="position:relative;width:calc(var(--m,60px) * 2.15);height:calc(var(--m,60px) * 1.95);animation:nd-bob 2.8s ease-in-out infinite">
+
+  <!-- LEGS (behind body) -->
+  <div style="position:absolute;left:calc(50% - var(--m,60px) * 0.42);bottom:calc(var(--m,60px) * 0.02);width:calc(var(--m,60px) * 0.16);height:calc(var(--m,60px) * 0.66);border-radius:999px;background:var(--m-limb,oklch(0.68 0.2 32));transform-origin:top center;transform:rotate(20deg);z-index:1"></div>
+  <div style="position:absolute;left:calc(50% + var(--m,60px) * 0.26);bottom:calc(var(--m,60px) * 0.02);width:calc(var(--m,60px) * 0.16);height:calc(var(--m,60px) * 0.72);border-radius:999px;background:var(--m-limb,oklch(0.68 0.2 32));transform-origin:top center;transform:rotate(-24deg);z-index:1"></div>
+
+  <!-- BODY : calendar card -->
+  <div style="position:absolute;left:50%;bottom:calc(var(--m,60px) * 0.5);transform:translateX(-50%);width:calc(var(--m,60px) * 1.2);height:calc(var(--m,60px) * 1);border-radius:calc(var(--m,60px) * 0.2);background:var(--fab-grad,linear-gradient(135deg,#ff8f45,#f2542d));box-shadow:0 calc(var(--m,60px) * 0.08) calc(var(--m,60px) * 0.22) calc(var(--m,60px) * -0.06) rgba(120,40,10,.45);z-index:3">
+
+    <!-- binder rings -->
+    <div style="position:absolute;top:calc(var(--m,60px) * -0.2);left:26%;width:calc(var(--m,60px) * 0.19);height:calc(var(--m,60px) * 0.3);border:calc(var(--m,60px) * 0.06) solid var(--m-limb,oklch(0.68 0.2 32));border-radius:999px;background:transparent"></div>
+    <div style="position:absolute;top:calc(var(--m,60px) * -0.2);right:26%;width:calc(var(--m,60px) * 0.19);height:calc(var(--m,60px) * 0.3);border:calc(var(--m,60px) * 0.06) solid var(--m-limb,oklch(0.68 0.2 32));border-radius:999px;background:transparent"></div>
+
+    <!-- calendar header strip -->
+    <div style="position:absolute;top:calc(var(--m,60px) * 0.09);left:calc(var(--m,60px) * 0.1);right:calc(var(--m,60px) * 0.1);height:calc(var(--m,60px) * 0.16);background:rgba(255,255,255,.92);border-radius:999px;display:flex;align-items:center;justify-content:center;gap:calc(var(--m,60px) * 0.08)">
+      <div style="width:calc(var(--m,60px) * 0.07);height:calc(var(--m,60px) * 0.07);border-radius:50%;background:var(--accent3,oklch(0.6 0.2 285))"></div>
+      <div style="width:calc(var(--m,60px) * 0.07);height:calc(var(--m,60px) * 0.07);border-radius:50%;background:#c8c2e0"></div>
+      <div style="width:calc(var(--m,60px) * 0.07);height:calc(var(--m,60px) * 0.07);border-radius:50%;background:#c8c2e0"></div>
+    </div>
+
+    <!-- FACE screen -->
+    <div style="position:absolute;left:calc(var(--m,60px) * 0.1);right:calc(var(--m,60px) * 0.1);top:calc(var(--m,60px) * 0.32);bottom:calc(var(--m,60px) * 0.09);background:#1b1630;border-radius:calc(var(--m,60px) * 0.14)">
+      <!-- eyes -->
+      <div style="position:absolute;top:22%;left:0;right:0;display:flex;justify-content:center;align-items:center;gap:calc(var(--m,60px) * 0.13)">
+        <div style="width:calc(var(--m,60px) * 0.26);height:calc(var(--m,60px) * 0.26);border:calc(var(--m,60px) * 0.075) solid #fff;border-radius:50%;box-sizing:border-box"></div>
+        <div style="width:calc(var(--m,60px) * 0.26);height:calc(var(--m,60px) * 0.15);border-top:calc(var(--m,60px) * 0.075) solid #fff;border-radius:999px 999px 0 0;box-sizing:border-box"></div>
+      </div>
+      <!-- smile -->
+      <div style="position:absolute;bottom:20%;left:50%;transform:translateX(-50%);width:calc(var(--m,60px) * 0.24);height:calc(var(--m,60px) * 0.13);border-bottom:calc(var(--m,60px) * 0.06) solid #fff;border-radius:0 0 999px 999px;box-sizing:border-box"></div>
+    </div>
+
+    <!-- ARMS -->
+    <sc-if value="{{ isPeek }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;top:calc(var(--m,60px) * 0.26);left:calc(var(--m,60px) * -0.5);width:calc(var(--m,60px) * 0.62);height:calc(var(--m,60px) * 0.15);border-radius:999px;background:var(--m-limb,oklch(0.68 0.2 32));transform-origin:right center;transform:rotate(18deg);z-index:-1"></div>
+      <div style="position:absolute;top:calc(var(--m,60px) * 0.1);right:calc(var(--m,60px) * -0.52);width:calc(var(--m,60px) * 0.66);height:calc(var(--m,60px) * 0.15);border-radius:999px;background:var(--m-limb,oklch(0.68 0.2 32));transform-origin:left center;transform:rotate(-34deg);z-index:-1"></div>
+    </sc-if>
+    <sc-if value="{{ isCheer }}" hint-placeholder-val="{{ true }}">
+      <div style="--rot:-52deg;position:absolute;top:calc(var(--m,60px) * 0.02);left:calc(var(--m,60px) * -0.48);width:calc(var(--m,60px) * 0.66);height:calc(var(--m,60px) * 0.15);border-radius:999px;background:var(--m-limb,oklch(0.68 0.2 32));transform-origin:right center;transform:rotate(-52deg);z-index:-1;animation:nd-wiggle 1.1s ease-in-out infinite"></div>
+      <div style="--rot:52deg;position:absolute;top:calc(var(--m,60px) * 0.02);right:calc(var(--m,60px) * -0.48);width:calc(var(--m,60px) * 0.66);height:calc(var(--m,60px) * 0.15);border-radius:999px;background:var(--m-limb,oklch(0.68 0.2 32));transform-origin:left center;transform:rotate(52deg);z-index:-1;animation:nd-wiggle 1.1s ease-in-out infinite"></div>
+    </sc-if>
+    <sc-if value="{{ isPoint }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;top:calc(var(--m,60px) * 0.3);left:calc(var(--m,60px) * -0.48);width:calc(var(--m,60px) * 0.6);height:calc(var(--m,60px) * 0.15);border-radius:999px;background:var(--m-limb,oklch(0.68 0.2 32));transform-origin:right center;transform:rotate(16deg);z-index:-1"></div>
+      <div style="position:absolute;top:calc(var(--m,60px) * -0.04);right:calc(var(--m,60px) * -0.46);width:calc(var(--m,60px) * 0.68);height:calc(var(--m,60px) * 0.15);border-radius:999px;background:var(--m-limb,oklch(0.68 0.2 32));transform-origin:left center;transform:rotate(58deg);z-index:-1"></div>
+    </sc-if>
+
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:200,&quot;height&quot;:190},&quot;pose&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;peek&quot;,&quot;cheer&quot;,&quot;point&quot;],&quot;default&quot;:&quot;cheer&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  renderVals() {
+    const pose = this.props.pose || 'peek';
+    return {
+      isPeek: pose === 'peek',
+      isCheer: pose === 'cheer',
+      isPoint: pose === 'point',
+    };
+  }
+}
+</script>
+</body>
+</html>

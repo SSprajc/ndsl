@@ -2,10 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../domain/todo.dart';
+import '../theme/app_theme.dart';
 import 'todo_cubit.dart';
+import 'widgets/celebration.dart';
+import 'widgets/empty_state.dart';
+import 'widgets/gradient_fab.dart';
+import 'widgets/habit_row.dart';
+import 'widgets/mascot.dart';
+import 'widgets/new_habit_dialog.dart';
+import 'widgets/streak_tile.dart';
 
-/// Bare functional screen — layout and styling are deliberately absent;
-/// claude-design owns the visual pass.
+/// Playful gamified home. Three states: empty (0 habits), all-done
+/// (celebration), and the default mixed list.
 class TodoScreen extends StatefulWidget {
   const TodoScreen({super.key});
 
@@ -34,57 +42,44 @@ class _TodoScreenState extends State<TodoScreen> {
   @override
   Widget build(BuildContext context) {
     final state = context.watch<TodoCubit>().state;
+    final empty = state.todos.isEmpty;
+
     return Scaffold(
-      appBar: AppBar(title: Text('Streak: ${state.streak}')),
-      body: ListView(
-        children: [
-          for (final todo in state.todos)
-            ListTile(
-              leading: Checkbox(
-                value: todo.isCompleted,
-                // Done is done: no unchecking.
-                onChanged: todo.isCompleted
-                    ? null
-                    : (_) => context.read<TodoCubit>().complete(todo.id),
+      body: SafeArea(
+        child: state.allDone
+            ? Celebration(streak: state.streak)
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  _Header(streak: state.streak, active: !empty),
+                  if (!empty) _Progress(todos: state.todos),
+                  Expanded(
+                    child: empty
+                        ? const EmptyState()
+                        : ListView(
+                            padding: const EdgeInsets.fromLTRB(
+                                AppSpace.screenX - 10, AppSpace.s8, AppSpace.screenX - 10, 96),
+                            children: [
+                              for (final todo in state.todos)
+                                HabitRow(
+                                  todo: todo,
+                                  onComplete: () => context.read<TodoCubit>().complete(todo.id),
+                                  onDelete: () => _confirmDelete(todo),
+                                ),
+                            ],
+                          ),
+                  ),
+                ],
               ),
-              title: Text(todo.name),
-              onLongPress: () => _confirmDelete(todo),
-            ),
-        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _promptAdd,
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: GradientFab(onTap: _promptAdd, pulsing: empty),
     );
   }
 
   Future<void> _promptAdd() async {
     final cubit = context.read<TodoCubit>();
-    final controller = TextEditingController();
-    final name = await showDialog<String>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('New habit'),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
-          onSubmitted: (v) => Navigator.pop(context, v),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, controller.text),
-            child: const Text('Add'),
-          ),
-        ],
-      ),
-    );
-    final trimmed = name?.trim() ?? '';
-    if (trimmed.isNotEmpty) await cubit.add(trimmed);
+    final name = await showNewHabitDialog(context);
+    if (name != null && name.isNotEmpty) await cubit.add(name);
   }
 
   Future<void> _confirmDelete(Todo todo) async {
@@ -94,17 +89,91 @@ class _TodoScreenState extends State<TodoScreen> {
       builder: (context) => AlertDialog(
         title: Text('Delete "${todo.name}"?'),
         actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('No'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: const Text('Yes'),
-          ),
+          TextButton(onPressed: () => Navigator.pop(context, false), child: const Text('No')),
+          TextButton(onPressed: () => Navigator.pop(context, true), child: const Text('Yes')),
         ],
       ),
     );
     if (confirmed ?? false) await cubit.delete(todo.id);
+  }
+}
+
+class _Header extends StatelessWidget {
+  const _Header({required this.streak, required this.active});
+
+  final int streak;
+  final bool active;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(AppSpace.screenX, AppSpace.s18, AppSpace.screenX, AppSpace.s6),
+      child: Row(
+        children: [
+          StreakTile(value: streak, active: active),
+          const SizedBox(width: AppSpace.s16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(active ? '$streak-day' : 'Day zero', style: AppType.title.copyWith(color: c.text)),
+                const SizedBox(height: AppSpace.s2),
+                Text(
+                  active ? 'streak 🔥' : "let's go!",
+                  style: AppType.subtitle.copyWith(color: c.primary),
+                ),
+              ],
+            ),
+          ),
+          const Mascot(pose: MascotPose.peek, m: 30),
+        ],
+      ),
+    );
+  }
+}
+
+class _Progress extends StatelessWidget {
+  const _Progress({required this.todos});
+
+  final List<Todo> todos;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = context.colors;
+    final done = todos.where((t) => t.isCompleted).length;
+    final total = todos.length;
+    final value = total == 0 ? 0.0 : done / total;
+    final label = done == 0
+        ? '$done of $total — let\'s go!'
+        : '$done of $total — almost there!';
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(AppSpace.screenX, AppSpace.s6, AppSpace.screenX, AppSpace.s12),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(AppRadius.progress),
+            child: SizedBox(
+              height: 10,
+              child: Stack(
+                children: [
+                  Container(color: c.line),
+                  FractionallySizedBox(
+                    alignment: Alignment.centerLeft,
+                    widthFactor: value,
+                    child: Container(color: c.success),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(height: AppSpace.s6),
+          Text(label, style: AppType.progressLabel.copyWith(color: c.muted)),
+        ],
+      ),
+    );
   }
 }

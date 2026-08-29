@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 215 195" width="215" height="195" role="img" aria-label="ndsl mascot point">
+  <defs>
+    <linearGradient id="g_point" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FF7C30"></stop><stop offset="1" stop-color="#F53B4B"></stop>
+    </linearGradient>
+  </defs>
+  
+  <rect x="47.5" y="67.5" width="60.0" height="15.0" rx="7.5" fill="#FB5B40" transform="rotate(164 47.5 75.0)"></rect><rect x="167.5" y="33.5" width="68.0" height="15.0" rx="7.5" fill="#FB5B40" transform="rotate(-58 167.5 41.0)"></rect>
+  
+  <rect x="65.5" y="143.0" width="16.0" height="66.0" rx="8.0" fill="#FB5B40" transform="rotate(20 65.5 143.0)"></rect><rect x="133.5" y="143.0" width="16.0" height="72.0" rx="8.0" fill="#FB5B40" transform="rotate(-24 133.5 143.0)"></rect>
+  
+  <rect x="78.7" y="25.0" width="19.0" height="30.0" rx="9.5" fill="none" stroke="#FB5B40" stroke-width="6.0"></rect>
+  <rect x="117.3" y="25.0" width="19.0" height="30.0" rx="9.5" fill="none" stroke="#FB5B40" stroke-width="6.0"></rect>
+  
+  <rect x="47.5" y="45.0" width="120.0" height="100.0" rx="20.0" fill="url(#g_point)"></rect>
+  
+  <rect x="57.5" y="54.0" width="100.0" height="16.0" rx="8.0" fill="rgba(255,255,255,0.92)"></rect>
+  <circle cx="92.5" cy="62.0" r="3.5" fill="#7965F0"></circle><circle cx="107.5" cy="62.0" r="3.5" fill="#C8C2E0"></circle><circle cx="122.5" cy="62.0" r="3.5" fill="#C8C2E0"></circle>
+  
+  <rect x="57.5" y="77.0" width="100.0" height="59.0" rx="14.0" fill="#1B1630"></rect>
+  <circle cx="88.0" cy="103.0" r="9.3" fill="none" stroke="#fff" stroke-width="7.5"></circle>
+  <path d="M 114.0 103.0 A 13.0 13.0 0 0 1 140.0 103.0" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round"></path>
+  <path d="M 95.5 124.2 Q 107.5 145.0 119.5 124.2" fill="none" stroke="#fff" stroke-width="6.0" stroke-linecap="round"></path>
+</svg>

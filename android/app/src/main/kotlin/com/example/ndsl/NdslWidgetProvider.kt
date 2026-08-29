@@ -27,27 +27,25 @@ class NdslWidgetProvider : HomeWidgetProvider() {
 
         appWidgetIds.forEach { widgetId ->
             val views = RemoteViews(context.packageName, R.layout.ndsl_widget)
+            // Tapping the card body (outside a row) opens the app.
+            views.setOnClickPendingIntent(
+                R.id.widget_root,
+                HomeWidgetLaunchIntent.getActivity(context, MainActivity::class.java),
+            )
             if (uncompleted.length() == 0) {
-                views.setViewVisibility(R.id.big_streak, View.VISIBLE)
-                views.setViewVisibility(R.id.item_list, View.GONE)
-                views.setViewVisibility(R.id.corner_streak, View.GONE)
+                views.setViewVisibility(R.id.pending_container, View.GONE)
+                views.setViewVisibility(R.id.alldone_container, View.VISIBLE)
                 views.setTextViewText(R.id.big_streak, streak.toString())
-                views.setOnClickPendingIntent(
-                    R.id.widget_root,
-                    HomeWidgetLaunchIntent.getActivity(context, MainActivity::class.java),
-                )
             } else {
-                views.setViewVisibility(R.id.big_streak, View.GONE)
-                views.setViewVisibility(R.id.item_list, View.VISIBLE)
-                views.setViewVisibility(R.id.corner_streak, View.VISIBLE)
-                views.setTextViewText(R.id.corner_streak, streak.toString())
+                views.setViewVisibility(R.id.pending_container, View.VISIBLE)
+                views.setViewVisibility(R.id.alldone_container, View.GONE)
+                views.setTextViewText(R.id.streak_pill, "$streak 🔥")
                 views.removeAllViews(R.id.item_list)
-                // ponytail: rows via RemoteViews.addView; RemoteViewsService only
-                // if lists ever grow beyond what a widget can show anyway.
-                for (i in 0 until uncompleted.length()) {
+                // ponytail: first 3 rows only; that's what the card fits beside the mascot.
+                for (i in 0 until minOf(uncompleted.length(), 3)) {
                     val item = uncompleted.getJSONObject(i)
                     val row = RemoteViews(context.packageName, R.layout.ndsl_widget_item)
-                    row.setTextViewText(R.id.item_name, "○  " + item.getString("name"))
+                    row.setTextViewText(R.id.item_name, item.getString("name"))
                     row.setOnClickPendingIntent(
                         R.id.item_name,
                         HomeWidgetBackgroundIntent.getBroadcast(

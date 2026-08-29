@@ -6,6 +6,7 @@ import 'bootstrap.dart';
 import 'data/todo_repository.dart';
 import 'presentation/todo_cubit.dart';
 import 'presentation/todo_screen.dart';
+import 'theme/app_theme.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -23,6 +24,9 @@ class NdslApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'ndsl',
+      theme: buildAppTheme(Brightness.light),
+      darkTheme: buildAppTheme(Brightness.dark),
+      themeMode: ThemeMode.system,
       home: BlocProvider(
         create: (_) => TodoCubit(repository),
         child: const TodoScreen(),

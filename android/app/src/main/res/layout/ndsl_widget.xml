@@ -1,35 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- ponytail: bare functional layout; claude design restyles later. -->
+<!-- Playful widget: pending (card on wall) vs all-done (full-bleed gradient).
+     RemoteViews-safe: shape-drawable gradients, system font, static mascot PNG. -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white"
-    android:padding="8dp">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/big_streak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="48sp"
-        android:textStyle="bold"
-        android:textColor="@android:color/black"
-        android:text="0" />
-
-    <LinearLayout
-        android:id="@+id/item_list"
+    <!-- ===== PENDING ===== -->
+    <FrameLayout
+        android:id="@+id/pending_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:visibility="gone" />
+        android:layout_height="match_parent"
+        android:background="@drawable/widget_wall"
+        android:padding="6dp">
 
-    <TextView
-        android:id="@+id/corner_streak"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top|end"
-        android:textSize="12sp"
-        android:textColor="@android:color/darker_gray"
-        android:visibility="gone" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/widget_card"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="14dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <FrameLayout
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <TextView
+                        android:id="@+id/streak_pill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/streak_pill"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="3dp"
+                        android:textColor="@color/ndsl_on_primary"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/item_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:orientation="vertical" />
+            </LinearLayout>
+
+            <ImageView
+                android:layout_width="46dp"
+                android:layout_height="42dp"
+                android:layout_gravity="bottom|end"
+                android:contentDescription="@null"
+                android:src="@drawable/mascot_peek" />
+        </FrameLayout>
+    </FrameLayout>
+
+    <!-- ===== ALL DONE ===== -->
+    <FrameLayout
+        android:id="@+id/alldone_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/widget_gradient"
+        android:padding="16dp"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/big_streak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textColor="@color/ndsl_on_primary"
+                    android:textSize="56sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔥 all done!"
+                    android:textColor="@color/ndsl_white90"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <FrameLayout
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="55dp"
+                android:layout_gravity="bottom"
+                android:contentDescription="@null"
+                android:src="@drawable/mascot_cheer_white" />
+        </LinearLayout>
+    </FrameLayout>
 </FrameLayout>

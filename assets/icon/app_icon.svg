@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-label="ndsl launcher icon">
+  <defs>
+    <linearGradient id="ig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FF6D31"></stop><stop offset="1" stop-color="#E62845"></stop></linearGradient>
+    <linearGradient id="mg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFFFFF"></stop><stop offset="1" stop-color="#FFE3D4"></stop></linearGradient>
+  </defs>
+  <rect x="0" y="0" width="512" height="512" rx="128" fill="url(#ig)"></rect>
+  <g transform="translate(76.8 103.7) scale(1.667)">
+    <rect x="47.5" y="63.5" width="62.0" height="15.0" rx="7.5" fill="#FFFFFF" transform="rotate(162 47.5 71.0)"></rect><rect x="167.5" y="47.5" width="66.0" height="15.0" rx="7.5" fill="#FFFFFF" transform="rotate(-34 167.5 55.0)"></rect>
+    <rect x="65.5" y="143.0" width="16.0" height="66.0" rx="8.0" fill="#FFFFFF" transform="rotate(20 65.5 143.0)"></rect><rect x="133.5" y="143.0" width="16.0" height="72.0" rx="8.0" fill="#FFFFFF" transform="rotate(-24 133.5 143.0)"></rect>
+    <rect x="78.7" y="25.0" width="19.0" height="30.0" rx="9.5" fill="none" stroke="#FFFFFF" stroke-width="6.0"></rect>
+    <rect x="117.3" y="25.0" width="19.0" height="30.0" rx="9.5" fill="none" stroke="#FFFFFF" stroke-width="6.0"></rect>
+    <rect x="47.5" y="45.0" width="120.0" height="100.0" rx="20.0" fill="url(#mg)"></rect>
+    <rect x="57.5" y="54.0" width="100.0" height="16.0" rx="8.0" fill="#1B1630"></rect>
+    <circle cx="92.5" cy="62.0" r="3.5" fill="#7965F0"></circle><circle cx="107.5" cy="62.0" r="3.5" fill="#C8C2E0"></circle><circle cx="122.5" cy="62.0" r="3.5" fill="#C8C2E0"></circle>
+    <rect x="57.5" y="77.0" width="100.0" height="59.0" rx="14.0" fill="#1B1630"></rect>
+    <circle cx="88.0" cy="103.0" r="9.3" fill="none" stroke="#fff" stroke-width="7.5"></circle><path d="M 114.0 103.0 A 13.0 13.0 0 0 1 140.0 103.0" fill="none" stroke="#fff" stroke-width="7.5" stroke-linecap="round"></path><path d="M 95.5 124.2 Q 107.5 145.0 119.5 124.2" fill="none" stroke="#fff" stroke-width="6.0" stroke-linecap="round"></path>
+  </g>
+</svg>

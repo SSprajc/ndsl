@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ndsl widget palette (dark theme). -->
+<resources>
+    <color name="ndsl_wall">#0C0A16</color>
+    <color name="ndsl_surface">#201C30</color>
+    <color name="ndsl_text">#F4F2FF</color>
+    <color name="ndsl_secondary">#9588FF</color>
+    <color name="ndsl_grad_a">#FF8238</color>
+    <color name="ndsl_grad_b">#FC4351</color>
+    <color name="ndsl_on_primary">#FFFFFF</color>
+    <color name="ndsl_white90">#E6FFFFFF</color>
+</resources>

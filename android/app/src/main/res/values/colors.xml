@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- ndsl widget palette (from design/tokens.md, light theme). -->
+<resources>
+    <color name="ndsl_wall">#ECE9FB</color>
+    <color name="ndsl_surface">#FFFFFF</color>
+    <color name="ndsl_text">#201B3A</color>
+    <color name="ndsl_secondary">#7965F0</color>
+    <color name="ndsl_grad_a">#FF7C30</color>
+    <color name="ndsl_grad_b">#F53B4B</color>
+    <color name="ndsl_on_primary">#FFFFFF</color>
+    <color name="ndsl_white90">#E6FFFFFF</color>
+</resources>
